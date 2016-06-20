@@ -57,20 +57,15 @@ class SimilarSpider(InitSpider):
         elm = ec.presence_of_element_located(
             (By.CSS_SELECTOR, 'h1.stickyHeader-names'))
         WebDriverWait(self.driver, delay).until(elm)
-        sel = Selector(response)
-        time.sleep(2)
-        print ('cookie is', response.headers.getlist('Set-Cookie')[0].split(";")[0].split("=")[1])
-        my_file = open('body.html', 'w+b')
-        my_file.write(response.body)
-        print "response headers up", response.headers
+        # sel = Selector(response)
+        # time.sleep(2)
+        # my_file = open('body.html', 'w+b')
+        # my_file.write(response.body)
         content = self.driver.find_element_by_class_name('stickyHeader-names').text
         print "content is", content
         result = self.driver.execute_script("return Sw.preloadedData")
         print "result is", result
         # time.sleep(2)
-        items = response.xpath(
-            '//script/text()').re(r"Sw\.preloadedData = {([^}]*)}")
-        print items
         try:
             global_rank = self.driver.find_element_by_xpath(
                 '//div[@class="rankingItem--global"]//div[@class="rankingItem-value"]'
